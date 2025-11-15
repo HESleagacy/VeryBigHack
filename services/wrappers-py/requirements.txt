@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pymongo
+python-dotenv
+torch
+transformers
+sentencepiece
+langchain-openai
+langchain-core

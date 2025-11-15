@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pymongo
+python-dotenv
+schedule
+aiohttp
+sentence-transformers
+scikit-learn
+web3

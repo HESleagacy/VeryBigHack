@@ -1,0 +1,16 @@
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+.app header { background:#0b4; padding: 12px; display:flex; align-items:center; justify-content:space-between }
+.app header h1 { margin:0 }
+.app nav a { margin-left: 12px }
+.chat-page, .admin-page { padding: 16px }
+.controls { display:flex; gap:12px; align-items:center; margin-bottom:8px }
+.chat-box { border:1px solid #ddd; min-height:200px; padding:8px; margin-bottom:8px }
+.msg { padding:6px; border-bottom:1px solid #eee }
+.msg.attacker { background:#ffe6e6 }
+.prompt-form { display:flex; gap:8px }
+.prompt-form input { flex:1; padding:8px }
+.danger { background:#ff6666; color:white; border:none; padding:6px 10px }
+.grids { display:grid; grid-template-columns:1fr 1fr; gap:12px }
+.table { background:#fafafa; padding:8px; border:1px solid #eee }
+.table table { width:100%; border-collapse:collapse }
+.table th, .table td { text-align:left; padding:6px; border-bottom:1px solid #eee }

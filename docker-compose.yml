@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # 1. API Gateway (Node.js Traffic Cop)
+  gateway:
+    build: ./services/gateway-node
+    ports:
+      - "${PORT}:${PORT}"
+    depends_on:
+      - mongo
+      - wrappers
+      - detector
+    env_file:
+      - .env
+    volumes:
+      - ./services/gateway-node/src:/app/src
+    command: npm run dev
+
+  # 2. Wrappers Service (Python Poisoner)
+  wrappers:
+    build: ./services/wrappers-py
+    ports:
+      - "${WRAPPERS_PORT}:${WRAPPERS_PORT}"
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+    volumes:
+      - ./services/wrappers-py/app:/app/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port ${WRAPPERS_PORT} --reload
+
+  # 3. Detector Service (Python Brain)
+  detector:
+    build: ./services/detector-py
+    ports:
+      - "${DETECTOR_PORT}:${DETECTOR_PORT}"
+    depends_on:
+      - mongo
+      - hardhat
+    env_file:
+      - .env
+    volumes:
+      - ./services/detector-py/app:/app/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port ${DETECTOR_PORT} --reload
+
+  # 4. Blockchain Service (Hardhat Audit Trail)
+  hardhat:
+    build: ./services/blockchain
+    ports:
+      - "8545:8545" # Expose Hardhat RPC
+    env_file:
+      - .env
+    command: npx hardhat node
+
+  # 5. Database (MongoDB)
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
